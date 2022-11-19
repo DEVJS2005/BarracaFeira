@@ -1,0 +1,454 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BdBarracaDeFeiraModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Entrada">
+          <Key>
+            <PropertyRef Name="idEntrada" />
+            <PropertyRef Name="idProduto" />
+          </Key>
+          <Property Name="idEntrada" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idProduto" Type="int" Nullable="false" />
+          <Property Name="dataEntrada" Type="date" Nullable="false" />
+          <Property Name="quantidadeEntrada" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Estoque">
+          <Key>
+            <PropertyRef Name="idEstoque" />
+            <PropertyRef Name="idProduto" />
+          </Key>
+          <Property Name="idEstoque" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idProduto" Type="int" Nullable="false" />
+          <Property Name="quantidade" Type="int" />
+        </EntityType>
+        <EntityType Name="Pedido">
+          <Key>
+            <PropertyRef Name="idPedido" />
+          </Key>
+          <Property Name="idPedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPessoa" Type="int" Nullable="false" />
+          <Property Name="dataPessoa" Type="date" Nullable="false" />
+          <Property Name="status" Type="nchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PedidoProduto">
+          <Key>
+            <PropertyRef Name="idPedido" />
+            <PropertyRef Name="idProduto" />
+          </Key>
+          <Property Name="idPedido" Type="int" Nullable="false" />
+          <Property Name="idProduto" Type="int" Nullable="false" />
+          <Property Name="quanidadeItem" Type="int" />
+        </EntityType>
+        <EntityType Name="Pessoa2">
+          <Key>
+            <PropertyRef Name="idPessoa" />
+          </Key>
+          <Property Name="idPessoa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idSetor" Type="int" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="cpf" Type="bigint" Nullable="false" />
+          <Property Name="senha" Type="varchar" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Produto">
+          <Key>
+            <PropertyRef Name="idProduto" />
+          </Key>
+          <Property Name="idProduto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descricaoProduto" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="valorUnitario" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Setor">
+          <Key>
+            <PropertyRef Name="idSetor" />
+          </Key>
+          <Property Name="idSetor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="setor" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Entrada_Produto">
+          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+          <End Role="Entrada" Type="Self.Entrada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="idProduto" />
+            </Principal>
+            <Dependent Role="Entrada">
+              <PropertyRef Name="idProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estoque_Produto">
+          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+          <End Role="Estoque" Type="Self.Estoque" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="idProduto" />
+            </Principal>
+            <Dependent Role="Estoque">
+              <PropertyRef Name="idProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pedido_Pessoa2">
+          <End Role="Pessoa2" Type="Self.Pessoa2" Multiplicity="1" />
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa2">
+              <PropertyRef Name="idPessoa" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="idPessoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PedidoProduto_Pedido">
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
+          <End Role="PedidoProduto" Type="Self.PedidoProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedido">
+              <PropertyRef Name="idPedido" />
+            </Principal>
+            <Dependent Role="PedidoProduto">
+              <PropertyRef Name="idPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PedidoProduto_Produto">
+          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+          <End Role="PedidoProduto" Type="Self.PedidoProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="idProduto" />
+            </Principal>
+            <Dependent Role="PedidoProduto">
+              <PropertyRef Name="idProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pessoa2_Setor">
+          <End Role="Setor" Type="Self.Setor" Multiplicity="1" />
+          <End Role="Pessoa2" Type="Self.Pessoa2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Setor">
+              <PropertyRef Name="idSetor" />
+            </Principal>
+            <Dependent Role="Pessoa2">
+              <PropertyRef Name="idSetor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BdBarracaDeFeiraModelStoreContainer">
+          <EntitySet Name="Entrada" EntityType="Self.Entrada" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estoque" EntityType="Self.Estoque" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pedido" EntityType="Self.Pedido" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PedidoProduto" EntityType="Self.PedidoProduto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pessoa2" EntityType="Self.Pessoa2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Produto" EntityType="Self.Produto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Setor" EntityType="Self.Setor" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Entrada_Produto" Association="Self.FK_Entrada_Produto">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="Entrada" EntitySet="Entrada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estoque_Produto" Association="Self.FK_Estoque_Produto">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="Estoque" EntitySet="Estoque" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedido_Pessoa2" Association="Self.FK_Pedido_Pessoa2">
+            <End Role="Pessoa2" EntitySet="Pessoa2" />
+            <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedidoProduto_Pedido" Association="Self.FK_PedidoProduto_Pedido">
+            <End Role="Pedido" EntitySet="Pedido" />
+            <End Role="PedidoProduto" EntitySet="PedidoProduto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedidoProduto_Produto" Association="Self.FK_PedidoProduto_Produto">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="PedidoProduto" EntitySet="PedidoProduto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pessoa2_Setor" Association="Self.FK_Pessoa2_Setor">
+            <End Role="Setor" EntitySet="Setor" />
+            <End Role="Pessoa2" EntitySet="Pessoa2" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BdBarracaDeFeiraModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Entrada">
+          <Key>
+            <PropertyRef Name="idEntrada" />
+            <PropertyRef Name="idProduto" />
+          </Key>
+          <Property Name="idEntrada" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idProduto" Type="Int32" Nullable="false" />
+          <Property Name="dataEntrada" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="quantidadeEntrada" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Produto" Relationship="Self.FK_Entrada_Produto" FromRole="Entrada" ToRole="Produto" />
+        </EntityType>
+        <EntityType Name="Estoque">
+          <Key>
+            <PropertyRef Name="idEstoque" />
+            <PropertyRef Name="idProduto" />
+          </Key>
+          <Property Name="idEstoque" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idProduto" Type="Int32" Nullable="false" />
+          <Property Name="quantidade" Type="Int32" />
+          <NavigationProperty Name="Produto" Relationship="Self.FK_Estoque_Produto" FromRole="Estoque" ToRole="Produto" />
+        </EntityType>
+        <EntityType Name="Pedido">
+          <Key>
+            <PropertyRef Name="idPedido" />
+          </Key>
+          <Property Name="idPedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPessoa" Type="Int32" Nullable="false" />
+          <Property Name="dataPessoa" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="status" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Pessoa2" Relationship="Self.FK_Pedido_Pessoa2" FromRole="Pedido" ToRole="Pessoa2" />
+          <NavigationProperty Name="PedidoProduto" Relationship="Self.FK_PedidoProduto_Pedido" FromRole="Pedido" ToRole="PedidoProduto" />
+        </EntityType>
+        <EntityType Name="PedidoProduto">
+          <Key>
+            <PropertyRef Name="idPedido" />
+            <PropertyRef Name="idProduto" />
+          </Key>
+          <Property Name="idPedido" Type="Int32" Nullable="false" />
+          <Property Name="idProduto" Type="Int32" Nullable="false" />
+          <Property Name="quanidadeItem" Type="Int32" />
+          <NavigationProperty Name="Pedido" Relationship="Self.FK_PedidoProduto_Pedido" FromRole="PedidoProduto" ToRole="Pedido" />
+          <NavigationProperty Name="Produto" Relationship="Self.FK_PedidoProduto_Produto" FromRole="PedidoProduto" ToRole="Produto" />
+        </EntityType>
+        <EntityType Name="Pessoa2">
+          <Key>
+            <PropertyRef Name="idPessoa" />
+          </Key>
+          <Property Name="idPessoa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idSetor" Type="Int32" Nullable="false" />
+          <Property Name="nome" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cpf" Type="Int64" Nullable="false" />
+          <Property Name="senha" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Pedido" Relationship="Self.FK_Pedido_Pessoa2" FromRole="Pessoa2" ToRole="Pedido" />
+          <NavigationProperty Name="Setor" Relationship="Self.FK_Pessoa2_Setor" FromRole="Pessoa2" ToRole="Setor" />
+        </EntityType>
+        <EntityType Name="Produto">
+          <Key>
+            <PropertyRef Name="idProduto" />
+          </Key>
+          <Property Name="idProduto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descricaoProduto" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="valorUnitario" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Entrada" Relationship="Self.FK_Entrada_Produto" FromRole="Produto" ToRole="Entrada" />
+          <NavigationProperty Name="Estoque" Relationship="Self.FK_Estoque_Produto" FromRole="Produto" ToRole="Estoque" />
+          <NavigationProperty Name="PedidoProduto" Relationship="Self.FK_PedidoProduto_Produto" FromRole="Produto" ToRole="PedidoProduto" />
+        </EntityType>
+        <EntityType Name="Setor">
+          <Key>
+            <PropertyRef Name="idSetor" />
+          </Key>
+          <Property Name="idSetor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="setor1" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Pessoa2" Relationship="Self.FK_Pessoa2_Setor" FromRole="Setor" ToRole="Pessoa2" />
+        </EntityType>
+        <Association Name="FK_Entrada_Produto">
+          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+          <End Role="Entrada" Type="Self.Entrada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="idProduto" />
+            </Principal>
+            <Dependent Role="Entrada">
+              <PropertyRef Name="idProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estoque_Produto">
+          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+          <End Role="Estoque" Type="Self.Estoque" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="idProduto" />
+            </Principal>
+            <Dependent Role="Estoque">
+              <PropertyRef Name="idProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pedido_Pessoa2">
+          <End Role="Pessoa2" Type="Self.Pessoa2" Multiplicity="1" />
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa2">
+              <PropertyRef Name="idPessoa" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="idPessoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PedidoProduto_Pedido">
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
+          <End Role="PedidoProduto" Type="Self.PedidoProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedido">
+              <PropertyRef Name="idPedido" />
+            </Principal>
+            <Dependent Role="PedidoProduto">
+              <PropertyRef Name="idPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PedidoProduto_Produto">
+          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+          <End Role="PedidoProduto" Type="Self.PedidoProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="idProduto" />
+            </Principal>
+            <Dependent Role="PedidoProduto">
+              <PropertyRef Name="idProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pessoa2_Setor">
+          <End Role="Setor" Type="Self.Setor" Multiplicity="1" />
+          <End Role="Pessoa2" Type="Self.Pessoa2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Setor">
+              <PropertyRef Name="idSetor" />
+            </Principal>
+            <Dependent Role="Pessoa2">
+              <PropertyRef Name="idSetor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BdBarracaDeFeiraEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Entrada" EntityType="Self.Entrada" />
+          <EntitySet Name="Estoque" EntityType="Self.Estoque" />
+          <EntitySet Name="Pedido" EntityType="Self.Pedido" />
+          <EntitySet Name="PedidoProduto" EntityType="Self.PedidoProduto" />
+          <EntitySet Name="Pessoa2" EntityType="Self.Pessoa2" />
+          <EntitySet Name="Produto" EntityType="Self.Produto" />
+          <EntitySet Name="Setor" EntityType="Self.Setor" />
+          <AssociationSet Name="FK_Entrada_Produto" Association="Self.FK_Entrada_Produto">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="Entrada" EntitySet="Entrada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estoque_Produto" Association="Self.FK_Estoque_Produto">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="Estoque" EntitySet="Estoque" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedido_Pessoa2" Association="Self.FK_Pedido_Pessoa2">
+            <End Role="Pessoa2" EntitySet="Pessoa2" />
+            <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedidoProduto_Pedido" Association="Self.FK_PedidoProduto_Pedido">
+            <End Role="Pedido" EntitySet="Pedido" />
+            <End Role="PedidoProduto" EntitySet="PedidoProduto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedidoProduto_Produto" Association="Self.FK_PedidoProduto_Produto">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="PedidoProduto" EntitySet="PedidoProduto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pessoa2_Setor" Association="Self.FK_Pessoa2_Setor">
+            <End Role="Setor" EntitySet="Setor" />
+            <End Role="Pessoa2" EntitySet="Pessoa2" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BdBarracaDeFeiraModelStoreContainer" CdmEntityContainer="BdBarracaDeFeiraEntities">
+          <EntitySetMapping Name="Entrada">
+            <EntityTypeMapping TypeName="BdBarracaDeFeiraModel.Entrada">
+              <MappingFragment StoreEntitySet="Entrada">
+                <ScalarProperty Name="idEntrada" ColumnName="idEntrada" />
+                <ScalarProperty Name="idProduto" ColumnName="idProduto" />
+                <ScalarProperty Name="dataEntrada" ColumnName="dataEntrada" />
+                <ScalarProperty Name="quantidadeEntrada" ColumnName="quantidadeEntrada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estoque">
+            <EntityTypeMapping TypeName="BdBarracaDeFeiraModel.Estoque">
+              <MappingFragment StoreEntitySet="Estoque">
+                <ScalarProperty Name="idEstoque" ColumnName="idEstoque" />
+                <ScalarProperty Name="idProduto" ColumnName="idProduto" />
+                <ScalarProperty Name="quantidade" ColumnName="quantidade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pedido">
+            <EntityTypeMapping TypeName="BdBarracaDeFeiraModel.Pedido">
+              <MappingFragment StoreEntitySet="Pedido">
+                <ScalarProperty Name="idPedido" ColumnName="idPedido" />
+                <ScalarProperty Name="idPessoa" ColumnName="idPessoa" />
+                <ScalarProperty Name="dataPessoa" ColumnName="dataPessoa" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PedidoProduto">
+            <EntityTypeMapping TypeName="BdBarracaDeFeiraModel.PedidoProduto">
+              <MappingFragment StoreEntitySet="PedidoProduto">
+                <ScalarProperty Name="idPedido" ColumnName="idPedido" />
+                <ScalarProperty Name="idProduto" ColumnName="idProduto" />
+                <ScalarProperty Name="quanidadeItem" ColumnName="quanidadeItem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pessoa2">
+            <EntityTypeMapping TypeName="BdBarracaDeFeiraModel.Pessoa2">
+              <MappingFragment StoreEntitySet="Pessoa2">
+                <ScalarProperty Name="idPessoa" ColumnName="idPessoa" />
+                <ScalarProperty Name="idSetor" ColumnName="idSetor" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="cpf" ColumnName="cpf" />
+                <ScalarProperty Name="senha" ColumnName="senha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produto">
+            <EntityTypeMapping TypeName="BdBarracaDeFeiraModel.Produto">
+              <MappingFragment StoreEntitySet="Produto">
+                <ScalarProperty Name="idProduto" ColumnName="idProduto" />
+                <ScalarProperty Name="descricaoProduto" ColumnName="descricaoProduto" />
+                <ScalarProperty Name="valorUnitario" ColumnName="valorUnitario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Setor">
+            <EntityTypeMapping TypeName="BdBarracaDeFeiraModel.Setor">
+              <MappingFragment StoreEntitySet="Setor">
+                <ScalarProperty Name="idSetor" ColumnName="idSetor" />
+                <ScalarProperty Name="setor1" ColumnName="setor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

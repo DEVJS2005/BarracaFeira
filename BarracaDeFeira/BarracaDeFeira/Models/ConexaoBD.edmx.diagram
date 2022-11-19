@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f55b0444f8f9417c98f9dc57ba32317c" Name="Diagram1">
+        <EntityTypeShape EntityType="BdBarracaDeFeiraModel.Entrada" Width="1.5" PointX="1" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BdBarracaDeFeiraModel.Estoque" Width="1.5" PointX="1" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BdBarracaDeFeiraModel.Pedido" Width="1.5" PointX="8" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BdBarracaDeFeiraModel.PedidoProduto" Width="1.5" PointX="5.375" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BdBarracaDeFeiraModel.Pessoa2" Width="1.5" PointX="10.5" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BdBarracaDeFeiraModel.Produto" Width="1.5" PointX="3.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BdBarracaDeFeiraModel.Setor" Width="1.5" PointX="10.625" PointY="5.25" IsExpanded="true" />
+        <AssociationConnector Association="BdBarracaDeFeiraModel.FK_Entrada_Produto" ManuallyRouted="false" />
+        <AssociationConnector Association="BdBarracaDeFeiraModel.FK_Estoque_Produto" ManuallyRouted="false" />
+        <AssociationConnector Association="BdBarracaDeFeiraModel.FK_Pedido_Pessoa2" ManuallyRouted="false" />
+        <AssociationConnector Association="BdBarracaDeFeiraModel.FK_PedidoProduto_Pedido" ManuallyRouted="false" />
+        <AssociationConnector Association="BdBarracaDeFeiraModel.FK_PedidoProduto_Produto" ManuallyRouted="false" />
+        <AssociationConnector Association="BdBarracaDeFeiraModel.FK_Pessoa2_Setor" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

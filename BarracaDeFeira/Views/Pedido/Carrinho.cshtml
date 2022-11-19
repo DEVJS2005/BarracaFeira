@@ -1,0 +1,45 @@
+﻿@Model BarracaDeFeira.Models.Pedido;
+
+@{
+    ViewBag.Title = "Carrinho";
+}
+
+<h3>Carrinho</h3>
+<a href="/Produto/ListaProduto" type="button" class="btn btn-link">LISTA PRODUTOS</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">PRODUTO</th>
+            <th scope="col">VALOR UNITÁRIO</th>
+            <th scope="col">QUANTIDADE</th>
+            <th scope="col">TOTAL</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PedidoProduto)
+        {
+            <tr>
+                <th scope="row">@item.Produto.idProduto</th>
+                <td>@item.Produto.descricaoProduto</td>
+                <td>
+                    <input type="text"
+                           name="descricaoProduto"
+                           class="form-control"
+                           id="exampleInputEmail1"
+                           aria-describedby="emailHelp"
+                           value="@item.quanidadeItem"
+                           maxlength="15">
+                </td>
+                <td></td>
+                <td>
+                    <a href="/Produto/EntradaProduto?id=@item.Produto.idProduto" type="button" class="btn btn-link">ENTRADA</a>
+                    <a href="/Produto/EditarProduto?id=@item.Produto.idProduto" type="button" class="btn btn-link">EDITAR</a>
+                    <a href="/Produto/Excluir?id=@item.Produto.idProduto" type="button" class="btn btn-link">EXCLUIR</a>
+
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

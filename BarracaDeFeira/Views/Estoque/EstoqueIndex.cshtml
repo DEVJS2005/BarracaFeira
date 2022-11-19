@@ -1,0 +1,51 @@
+﻿@Model BarracaDeFeira.Models.Estoque; 
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h3>PRODUTOS</h3>
+<form name="form1" action="/Produto/EstoqueIndex" method="post">
+    <div class="form-group">
+        <label for="exampleInputEmail1">DESCRIÇÃO PRODUTO</label>
+        <input type="text" name="descricaoProduto" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrar com descrição do produto" maxlength="15">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">VALOR UNITÁRIO</label>
+        <input type="text" name="valorUnitario" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrar com o valor do Produto">
+    </div>
+
+    <button type="submit" class="btn btn-primary">CADASTRAR</button>
+
+</form>
+
+<h3> LISTA PRODUTO</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID PRODUTO</th>
+            <th scope="col">DESCRIÇÃO PRODUTO</th>
+            <th scope="col">QUANTIDADE</th>
+            <th scope="col">VALOR UNITÁRIO</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model) { 
+        <tr>
+            <th scope="row">@item.idProduto</th>
+            <td>@item.Produto.descricaoProduto</td>
+            <th scope="col">@item.quantidade</th>
+            <td>R$ @item.Produto.valorUnitario</td>
+            <td>
+                <a href="/Produto/EntradaProduto?id=@item.idProduto" type="button" class="btn btn-link">ENTRADA</a>
+                <a href="/Produto/EditarProduto?id=@item.idProduto" type="button" class="btn btn-link">EDITAR</a>
+                <a href="/Produto/Excluir?id=@item.idProduto" type="button" class="btn btn-link">EXCLUIR</a>
+
+            </td>
+        </tr>
+        }
+        
+    </tbody>
+</table>

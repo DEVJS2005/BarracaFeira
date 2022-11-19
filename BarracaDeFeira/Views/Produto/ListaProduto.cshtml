@@ -1,0 +1,28 @@
+﻿@Model BarracaDeFeira.Models.Produto; 
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h3> LISTA PRODUTO</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">DESCRIÇÃO PRODUTO</th>
+            <th scope="col">VALOR UNITÁRIO</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model) { 
+            <tr>
+                <td>@item.descricaoProduto</td>
+                <td>R$ @item.valorUnitario</td>
+                <td>
+                    <a href="/Pedido/addProduto?id=@item.idProduto" type="button" class="btn btn-link">ADICIONAR</a>
+                </td>
+            </tr>
+        }
+        
+    </tbody>
+</table>

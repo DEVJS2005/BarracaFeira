@@ -1,0 +1,33 @@
+﻿@Model BarracaDeFeira.Models.Pessoa2; 
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h3> LISTA PESSOA</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">NOME</th>
+            <th scope="col">CPF</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model) { 
+            <tr>
+                <th scope="row">@item.idPessoa</th>
+                <td>@item.nome</td>
+                <td>@item.cpf</td>
+                <td>
+                    <a href="/Produto/EntradaProduto?id=@item.idPessoa" type="button" class="btn btn-link">ENTRADA</a>
+                    <a href="/Produto/EditarProduto?id=@item.idPessoa" type="button" class="btn btn-link">EDITAR</a>
+                    <a href="/Produto/Excluir?id=@item.idPessoa" type="button" class="btn btn-link">EXCLUIR</a>
+                    
+                </td>
+            </tr>
+        }
+        
+    </tbody>
+</table>

@@ -1,0 +1,34 @@
+﻿@Model BarracaDeFeira.Models.Produto; 
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h3>PRODUTOS</h3>
+<form name="form1" action="/Produto/EditarProduto?id=@Model.idProduto" method="post">
+    <div class="form-group">
+        <label for="exampleInputEmail1">DESCRIÇÃO PRODUTO</label>
+        <input type="text" 
+               name="descricaoProduto" 
+               class="form-control" 
+               id="exampleInputEmail1" 
+               aria-describedby="emailHelp" 
+               value="@Model.descricaoProduto"
+               maxlength="15">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">VALOR UNITÁRIO</label>
+        <input type="text" 
+               name="valorUnitario" 
+               class="form-control" 
+               id="exampleInputEmail1" 
+               aria-describedby="emailHelp" 
+               value="@Model.valorUnitario">
+    </div>
+
+    <button type="submit" class="btn btn-primary">ALTERAR</button>
+    <a href="/Produto/CadastroProduto" type="button" class="btn btn-link">VOLTAR</a>
+
+</form>
+
